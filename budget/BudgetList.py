@@ -7,7 +7,7 @@ class BudgetList:
         self.sum_expenses = 0
         self.expenses = []
         self.sum_overages = 0
-        self.sum_overages = []
+        self.overages = []
 
     def __iter__(self):
         self.iter_e = iter(self.expenses)
@@ -17,21 +17,19 @@ class BudgetList:
     def __next__(self):
         try:
             return self.iter_e.__next__()
-        except StopIteration a stop:
+        except StopIteration as stop:
             return self.iter_o.__next__()
 
+    def append(self, item):
+        if self.sum_expenses + item < self.budget:
+            self.expenses.append(item)
+            self.sum_expenses += item
+        else:
+            self.overages.append(item)
+            self.sum_overages += item
 
-def append(self, item):
-    if (self.sum_expenses + item < self.budget):
-        self.expenses.append(item)
-        self.sum_overages += item
-    else:
-        self.overages.append(item)
-        self.sum_overages += item
-
-
-def _len_(self):
-    return sum(self.expenses), len(self.overages)
+    def __len__(self):
+        return sum(self.expenses), len(self.overages)
 
 
 def main():
@@ -45,7 +43,6 @@ def main():
 
     for entry in myBudgetList:
         print(entry)
-
 
 
 if __name__ == "__main__":
